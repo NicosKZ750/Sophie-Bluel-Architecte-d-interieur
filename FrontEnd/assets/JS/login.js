@@ -1,10 +1,18 @@
-const elements = document.getElementsByClassName("form-login")[0].elements;
-const form = document.getElementsByClassName("form-login")[0];
+const form = document.getElementsByClassName("form-login")[0].elements;
 const messageError = document.getElementById("msg-error");
 const loginURL = "http://localhost:5678/api/users/login";
+
 // Se connecter lorque l'on clic sur le bouton
-form.addEventListener("submit", function (event) {
+form["submit-login"].addEventListener("click", function (event) {
   event.preventDefault();
+
+  // Validation du formulaire
+  if (form.email.value === "" || form.password.value === "") {
+    messageError.style.display = "flex";
+    return;
+  } else {
+    messageError.style.display = "none";
+  }
 
   fetch(loginURL, {
     method: "POST",
@@ -13,27 +21,23 @@ form.addEventListener("submit", function (event) {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({
-      email: elements.email.value,
-      password: elements.password.value,
+      email: form.email.value,
+      password: form.password.value,
     }),
   })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
+    .then((response) => response.json())
+    .then((data) => {
+      // Stocker les informations d'authentification et rediriger
+      localStorage.setItem("auth", JSON.stringify(data));
+      const auth = JSON.parse(localStorage.getItem("auth"));
+      if (auth && auth.token) {
+        window.location = "index.html";
       } else {
-        // traitement de l'erreur
-        throw Error("erreur d'authentification");
+        messageError.style.display = "flex";
       }
     })
-    .then((data) => {
-      localStorage.setItem("auth", JSON.stringify(data));
-      window.location = "index.html";
-    })
     .catch((error) => {
-      const errorElt = document.querySelector(".error");
-      errorElt.innerHTML = "erreur d'authentification";
+      console.error("Error:", error);
+      messageError.style.display = "flex";
     });
 });
-// AJOUTER LA PHRASE D4ERREUR EN HTML
-//FAIRE DU RESPONSIVE POUR LES IMAGE DANS LE MODAL
-//ET FAIRE EN SORTE QUE LE SITE SE REFRESH PAS CONSTAMENT A CHAQUE MODIF MASI FAIRE EN SORTE QUE CA FONCTIONNE

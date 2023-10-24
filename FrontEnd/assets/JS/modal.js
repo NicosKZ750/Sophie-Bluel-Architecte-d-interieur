@@ -21,9 +21,6 @@ const addProjectForm = document.querySelector("#ajout-form");
 // Variable pour background modal
 const backgroundModal = document.querySelector("#modals");
 
-// Variable pour le bouton appliquer les changements
-const applyChanges = document.querySelector("#changements");
-
 // Fonction pour ouvrir modal galerie pour supprimer un projet et celle pour ajouter un projet
 function openGalleryModal() {
   modalDeleteWork.style.display = "flex";
@@ -82,23 +79,18 @@ function deleteWork(event, id) {
       Authorization: getAuthorization(),
       "Content-Type": "application/json",
     },
-    params: {
-      id: id,
-    },
-  })
-    .then(() => {
-      const parentDiv = event.parentNode;
-      parentDiv.remove();
-      const alert = document.getElementById("alert");
-      alert.innerHTML = "Votre photo a été supprimé avec succès";
-      alert.style.display = "block";
-      setTimeout(function () {
-        alert.style.display = "none";
-      }, 5000);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  }).then(() => {
+    const parentDiv = event.parentNode;
+    parentDiv.remove();
+
+    const alert = document.getElementById("alert");
+    alert.innerHTML = "Votre photo a été supprimé avec succès";
+    alert.style.display = "block";
+    setTimeout(() => {
+      alert.style.display = "none";
+    }, 5000);
+  });
+  console.log(deleteWork);
 }
 
 // Fonctions pour ajouter des projets
@@ -174,16 +166,9 @@ function uploadImage() {
 
     uploadContent.style.display = "none";
     submitProjet.style.backgroundColor = "#1D6154";
-    projectUpload.style.display = "block";
+    projectUpload.style.display = "flex";
     backgroundPreview.style.backgroundColor = "#FFFFFF";
     reader.readAsDataURL(uploadImageInput.files[0]);
     projectUpload.appendChild(image);
   }
 }
-
-// Bouton pour appliquer les changements et donc fermer la boite modal
-applyChanges.addEventListener("click", function (event) {
-  event.preventDefault();
-  closeAddWorkModal();
-  closeGalleryModal();
-});

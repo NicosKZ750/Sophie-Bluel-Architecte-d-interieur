@@ -30,10 +30,11 @@
     </header>
 
     <main class="main-login">
-        <div id="msg-error">
-            <i class="fa-sharp fa-solid fa-triangle-exclamation"></i>
+        <div id="msg-error" class="hidden">
+
             <h3>Erreur dans l’identifiant ou le mot de passe</h3>
         </div>
+
         <h2>Log In</h2>
         <form class="form-login" method="post">
             <label for="email">E-mail</label>
@@ -42,8 +43,12 @@
             <input id="password" type="password" name="password" required />
             <input type="submit" name="submit-login" value="Se connecter" />
         </form>
+        <label class="error"></label>
+
         <a href="#">Mot de passe oublié</a>
+
     </main>
+
 
     <footer>
         <nav>
