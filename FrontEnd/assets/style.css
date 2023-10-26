@@ -537,6 +537,8 @@ figure .modifier {
   width: 50%;
   height: auto;
   flex-direction: column;
+  width: 100%;
+  max-width: 1100px;
 }
 
 .fermer {
