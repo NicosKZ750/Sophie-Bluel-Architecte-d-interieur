@@ -70,6 +70,37 @@ window.onclick = function (event) {
   }
 };
 
+// // Supprimer des photos
+// function deleteWork(event, id) {
+//   fetch('http://localhost:5678/api/works/' + id, {
+//     method: 'DELETE',
+//     headers: {
+//       Accept: 'application/json',
+//       Authorization: getAuthorization(),
+//       'Content-Type': 'application/json',
+//     },
+//   }).then(() => {
+//     const parentDiv = event.parentNode
+//     parentDiv.remove()
+
+//     const alert = document.getElementById('alert')
+//     alert.innerHTML = 'Votre photo a été supprimé avec succès'
+//     alert.style.display = 'block'
+//     const listFigure = document.querySelectorAll('.work-card')
+//     const selectWork = Array.from(listFigure).find((card) => {
+//       const cardId = card.dataset.id
+//       if (Number.parseInt(cardId) === id) {
+//         return card
+//       }
+//     })
+//     selectWork.remove()
+//     setTimeout(() => {
+//       alert.style.display = 'none'
+//     }, 5000)
+//   })
+//   console.log(deleteWork)
+// }
+
 // Supprimer des photos
 function deleteWork(event, id) {
   fetch("http://localhost:5678/api/works/" + id, {
@@ -86,6 +117,7 @@ function deleteWork(event, id) {
     const alert = document.getElementById("alert");
     alert.innerHTML = "Votre photo a été supprimé avec succès";
     alert.style.display = "block";
+    getWorks();
     setTimeout(() => {
       alert.style.display = "none";
     }, 5000);
@@ -140,6 +172,8 @@ async function handleFormSubmit(event) {
     setTimeout(function () {
       alert.style.display = "none";
     }, 5000);
+    getWorks();
+    reset();
   } catch (error) {
     console.error("Erreur :", error);
   }

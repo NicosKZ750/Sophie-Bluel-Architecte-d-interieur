@@ -306,7 +306,7 @@ footer nav ul {
 }
 
 .subcat {
-  width: 100%;
+  width: auto;
   height: 37px;
   text-decoration: none;
   background: white;
@@ -324,6 +324,7 @@ footer nav ul {
   text-align: center;
   color: #1d6154;
   background-color: white;
+  padding: 0px 15px 0px 15px;
 }
 .subcat:hover {
   background-color: #1d6154;
@@ -332,7 +333,6 @@ footer nav ul {
 
 .subcat:active {
   background-color: #1d6154;
-  width: 100%;
   height: 37px;
   line-height: 28px;
   text-decoration: none;
